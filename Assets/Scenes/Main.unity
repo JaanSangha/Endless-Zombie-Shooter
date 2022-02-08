@@ -2747,6 +2747,36 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &275557682
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 275557683}
+  m_Layer: 0
+  m_Name: GripIKSocket
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &275557683
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 275557682}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 543450651737367342}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &485390517
 GameObject:
   m_ObjectHideFlags: 0
@@ -4749,6 +4779,7 @@ Transform:
   - {fileID: 1184798679635012928}
   - {fileID: 6567089734117318134}
   - {fileID: 485390518}
+  - {fileID: 275557683}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4901,7 +4932,7 @@ MonoBehaviour:
   runSpeed: 10
   jumpForce: 5
   followTarget: {fileID: 485390517}
-  aimSensitivity: 0.2
+  aimSensitivity: 0.08
 --- !u!114 &919132147803158934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4948,7 +4979,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponToSpawn: {fileID: 8555431742585575642, guid: 0adcf806ab904794f9e4090a2969f8b8, type: 3}
+  playerController: {fileID: 0}
   weaponsSocketLocation: {fileID: 886057596}
+  gripIKSocketLocation: {fileID: 275557682}
 --- !u!4 &954176529534418240
 Transform:
   m_ObjectHideFlags: 0
