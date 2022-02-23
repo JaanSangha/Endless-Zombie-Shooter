@@ -39,6 +39,10 @@ public class MovementComponent : MonoBehaviour
         playerAnimator = GetComponent<Animator>();
         rigidbody = GetComponent<Rigidbody>();
         playerController = GetComponent<PlayerController>();
+        if (!GameManager.instance.cursorActive)
+        {
+            AppEvents.InvokeMouseCursorEnable(false);
+        }
     }
     // Start is called before the first frame update
     void Start()
@@ -101,6 +105,11 @@ public class MovementComponent : MonoBehaviour
 
     public void OnJump(InputValue value)
     {
+        if(playerController.isJumping)
+        {
+            return;
+        }
+
         playerController.isJumping = value.isPressed;
         playerAnimator.SetBool(isJumpingHash, playerController.isJumping);
         rigidbody.AddForce((transform.up + moveDirection) * jumpForce, ForceMode.Impulse);
