@@ -894,6 +894,10 @@ GameObject:
   - component: {fileID: 1671309357208012284}
   - component: {fileID: 8771794643294562438}
   - component: {fileID: -5356510008459953681}
+  - component: {fileID: 4493914615348665370}
+  - component: {fileID: 4493914615348665371}
+  - component: {fileID: 4493914615348665372}
+  - component: {fileID: 5269353934559239179}
   m_Layer: 0
   m_Name: Zombie1
   m_TagString: Untagged
@@ -943,7 +947,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 2ef8e6599b7f9934e8ff0d64c5325a1f, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -960,9 +964,74 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.25039577
-  m_Height: 1.7685323
+  m_Height: 1.7432241
   m_Direction: 1
-  m_Center: {x: 0, y: 0.88142586, z: 0.018762589}
+  m_Center: {x: 0, y: 0.8940799, z: 0.018762589}
+--- !u!195 &4493914615348665370
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2408008365029292015}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &4493914615348665371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2408008365029292015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5440edd51a2227c4a9c960e55b863d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4493914615348665372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2408008365029292015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdccae01caab9524abc38fe7830adf7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zombieDamage: 5
+  zombieNavMeshAgent: {fileID: 0}
+  zombieAnimator: {fileID: 0}
+  stateMachine: {fileID: 0}
+  followTarget: {fileID: 0}
+--- !u!114 &5269353934559239179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2408008365029292015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3928fbd6a88b02b4cab9a54c599e9299, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 150
+  maxHealth: 150
 --- !u!1 &2527505852845453182
 GameObject:
   m_ObjectHideFlags: 0

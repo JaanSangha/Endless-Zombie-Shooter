@@ -5,7 +5,7 @@ using UnityEngine;
 public class ZombieDeadState : ZombieStates
 {
     int movementZHash = Animator.StringToHash("MovementZ");
-    int isDeadHash = Animator.StringToHash("isDead");
+    int isDeadHash = Animator.StringToHash("IsDead");
 
     public ZombieDeadState(ZombieComponent zombie, StateMachine stateMachine) : base(zombie, stateMachine)
     {
@@ -26,7 +26,7 @@ public class ZombieDeadState : ZombieStates
     public override void Exit()
     {
         base.Exit();
-        ownerZombie.zombieNavMeshAgent.isStopped = false;
+        //ownerZombie.zombieNavMeshAgent.isStopped = false;
         // ownerZombie.zombieAnimator.SetBool(isDeadHash, false);
 
     }
