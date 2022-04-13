@@ -47,6 +47,18 @@ public class GameUIController : MonoBehaviour
         //PauseCanvas.DisableWidget();
         InventoryCanvas.DisableWidget();
     }
+    public void ToggleInventory(bool inventoryOn)
+    {
+        if (inventoryOn)
+        {
+            EnableInventoryMenu();
+        }
+        else
+        {
+            EnableGameMenu();
+        }
+
+    }
 }
 
 public abstract class GameHUDWidget : MonoBehaviour

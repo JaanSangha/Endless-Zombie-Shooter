@@ -44,7 +44,7 @@ public class MovementComponent : MonoBehaviour
             AppEvents.InvokeMouseCursorEnable(false);
         }
 
-        UnityEngine.Cursor.visible = false;
+       // UnityEngine.Cursor.visible = false;
     }
     // Start is called before the first frame update
     void Start()

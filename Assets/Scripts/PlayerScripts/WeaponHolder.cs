@@ -20,6 +20,9 @@ public class WeaponHolder : MonoBehaviour
 
     bool wasFiring = false;
     bool firingPressed = false;
+    GameObject spawnedWeapon;
+    public WeaponScriptable startingWeaponScriptable;
+    //public WeaponAmmoUI weaponAmmoUI;
     // Start is called before the first frame update
     public readonly int isFiringHash = Animator.StringToHash("IsFiring");
     public readonly int isReloadingHash = Animator.StringToHash("IsReloading");
@@ -28,12 +31,15 @@ public class WeaponHolder : MonoBehaviour
     {
         playerController = GetComponent<PlayerController>();
         animator = GetComponent<Animator>();
-        GameObject spawnedWeapon = Instantiate(weaponToSpawn, weaponsSocketLocation.transform.position, weaponsSocketLocation.transform.rotation, weaponsSocketLocation.transform);
+        playerController.inventory.AddItem(startingWeaponScriptable, 1);
+        //EquipWeapon(startingWeaponScriptable);
 
-        equippedWeapon = spawnedWeapon.GetComponent<WeaponComponent>();
-        equippedWeapon.Initialize(this);
-        PlayerEvents.InvokeOnWeaponEquipped(equippedWeapon);
-        gripIKSocketLocation= equippedWeapon.gripLocation;
+        //spawnedWeapon = Instantiate(weaponToSpawn, weaponsSocketLocation.transform.position, weaponsSocketLocation.transform.rotation, weaponsSocketLocation.transform);
+        //startingWeaponScriptable.UseItem(playerController);
+
+        //equippedWeapon = spawnedWeapon.GetComponent<WeaponComponent>();
+        //equippedWeapon.Initialize(this, startingWeaponScriptable);
+        //PlayerEvents.InvokeOnWeaponEquipped(equippedWeapon);
     }
 
     // Update is called once per frame
@@ -44,14 +50,21 @@ public class WeaponHolder : MonoBehaviour
 
     private void OnAnimatorIK(int layerIndex)
     {
-        animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1);
+        if (equippedWeapon)
+        {
+
+            animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1);
         animator.SetIKPosition(AvatarIKGoal.LeftHand, gripIKSocketLocation.transform.position);
+        }
     }
 
     public void OnFire(InputValue value)
     {
         firingPressed = value.isPressed;
-
+        if (!equippedWeapon)
+        {
+            return;
+        }
         if (firingPressed)
         {
             StartFiring();
@@ -84,6 +97,10 @@ public class WeaponHolder : MonoBehaviour
     public void OnReload(InputValue value)
     {
         playerController.isReloading = value.isPressed;
+        if (!equippedWeapon)
+        {
+            return;
+        }
         StartReloading();
     }
 
@@ -111,5 +128,29 @@ public class WeaponHolder : MonoBehaviour
         equippedWeapon.StopReloading();
         animator.SetBool(isReloadingHash, false);
         CancelInvoke(nameof(StopReloading));
+    }
+    public void EquipWeapon(WeaponScriptable weaponScriptable)
+    {
+        if (!weaponScriptable) return;
+        spawnedWeapon = Instantiate(weaponScriptable.itemPrefab, weaponsSocketLocation.transform.position, weaponsSocketLocation.transform.rotation, weaponsSocketLocation.transform);
+
+        if (!spawnedWeapon) return;
+
+        equippedWeapon = spawnedWeapon.GetComponent<WeaponComponent>();
+        if (!equippedWeapon) return;
+
+        equippedWeapon.Initialize(this, weaponScriptable);
+        PlayerEvents.InvokeOnWeaponEquipped(equippedWeapon);
+        gripIKSocketLocation = equippedWeapon.gripLocation;
+        //weaponAmmoUI.OnWeaponEquipped(equippedWeapon);
+    }
+    public void UnequipWeapon()
+    {
+        if (!equippedWeapon)
+        {
+            return;
+        }
+        Destroy(equippedWeapon.gameObject);
+        equippedWeapon = null;
     }
 }

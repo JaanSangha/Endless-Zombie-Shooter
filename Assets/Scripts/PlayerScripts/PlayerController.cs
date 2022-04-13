@@ -15,15 +15,29 @@ public class PlayerController : MonoBehaviour
 
     public bool isInventoryOn = false;
     public GameUIController gameUIController;
+    public WeaponHolder weaponHolder;
+
+    private void Awake()
+    {
+        if (inventory == null)
+        {
+            inventory = GetComponent<InventoryComponent>();
+        }
+        if (gameUIController == null)
+        {
+            gameUIController = GetComponent<GameUIController>();
+        }
+        if (weaponHolder == null)
+        {
+            weaponHolder = GetComponent<WeaponHolder>();
+        }
+    }
 
     public void OnInventory(InputValue value)
     {
         isInventoryOn = !isInventoryOn;
-        if (isInventoryOn)
-        {
-            gameUIController.EnableGameMenu();
-        }
-        else
-            gameUIController.EnableInventoryMenu();
+        gameUIController.ToggleInventory(isInventoryOn);
+        AppEvents.InvokeMouseCursorEnable(isInventoryOn);
+
     }
 }
