@@ -17,7 +17,7 @@ MonoBehaviour:
   itemPrefab: {fileID: 8555431742585575642, guid: 0adcf806ab904794f9e4090a2969f8b8, type: 3}
   stackable: 0
   maxSize: 1
-  amountValue: 1
+  amountValue: 200
   weaponStats:
     weaponName: AK-47
     damage: 35

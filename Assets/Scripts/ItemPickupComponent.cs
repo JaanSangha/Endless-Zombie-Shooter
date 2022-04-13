@@ -4,18 +4,12 @@ using UnityEngine;
 
 public class ItemPickupComponent : MonoBehaviour
 {
-    [SerializeField]
-    ItemScript pickupItem;
-
-    [Tooltip("Manual override for drop amount, if left at -1 it will use the amount from the scriptable object")]
-    [SerializeField]
-    int amount = -1;
-
+    [SerializeField] ItemScript pickupItem;
+    [SerializeField] int amount = -1;
     [SerializeField] MeshRenderer propMeshRenderer;
-    [SerializeField] MeshFilter propMeshFilter;
+    [SerializeField] private MeshFilter propMeshFilter;
+    private ItemScript ItemInstance;
 
-    ItemScript ItemInstance;
-    // Start is called before the first frame update
     void Start()
     {
         InstantiateItem();
@@ -24,10 +18,15 @@ public class ItemPickupComponent : MonoBehaviour
     private void InstantiateItem()
     {
         ItemInstance = Instantiate(pickupItem);
-        if(amount > 0)
+        if (amount > 0)
         {
             ItemInstance.SetAmount(amount);
         }
+        else
+        {
+            ItemInstance.SetAmount(pickupItem.amountValue);
+        }
+
         ApplyMesh();
     }
 
@@ -40,7 +39,17 @@ public class ItemPickupComponent : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player")) return;
+        InventoryComponent playerInventory = other.GetComponent<InventoryComponent>();
+        if (playerInventory)
+        {
+            playerInventory.AddItem(ItemInstance, amount);
+        }
 
+        if (ItemInstance.itemCategory == ItemCategory.Weapon)
+        {
+            other.GetComponentInChildren<WeaponHolder>().equippedWeapon.weaponStats.totalBullets +=
+                pickupItem.amountValue;
+        }
         Destroy(gameObject);
     }
 }
