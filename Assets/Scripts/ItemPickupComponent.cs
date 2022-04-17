@@ -40,6 +40,8 @@ public class ItemPickupComponent : MonoBehaviour
     {
         if (!other.CompareTag("Player")) return;
         InventoryComponent playerInventory = other.GetComponent<InventoryComponent>();
+        WeaponHolder weaponHolder = other.GetComponent<WeaponHolder>();
+
         if (playerInventory)
         {
             playerInventory.AddItem(ItemInstance, amount);
@@ -47,11 +49,25 @@ public class ItemPickupComponent : MonoBehaviour
 
         if (ItemInstance.itemCategory == ItemCategory.Weapon)
         {
-            WeaponHolder playerWeapon = other.GetComponent<WeaponHolder>();
-            if (playerWeapon.equippedWeapon != null)
+            WeaponComponent tempWeaponData = ItemInstance.itemPrefab.GetComponent<WeaponComponent>();
+            if(weaponHolder.WeaponAmmoData.ContainsKey(tempWeaponData.weaponStats.weaponType))
             {
-                playerWeapon.equippedWeapon.weaponStats.totalBullets += pickupItem.amountValue;
+                WeaponStats tempWeaponStats = weaponHolder.WeaponAmmoData[tempWeaponData.weaponStats.weaponType];
+                tempWeaponStats.totalBullets += ItemInstance.amountValue;
+
+                other.GetComponentInChildren<WeaponHolder>().WeaponAmmoData[tempWeaponData.weaponStats.weaponType] = tempWeaponStats;
+                if (weaponHolder.equippedWeapon != null)
+                {
+                    weaponHolder.equippedWeapon.weaponStats= weaponHolder.WeaponAmmoData[tempWeaponStats.weaponType];
+                }
             }
+           
+
+            //WeaponHolder playerWeapon = other.GetComponent<WeaponHolder>();
+            //if (playerWeapon.equippedWeapon != null)
+            //{
+            //    //playerWeapon.equippedWeapon.weaponStats.totalBullets += pickupItem.amountValue;
+            //}
         }
         Destroy(gameObject);
     }

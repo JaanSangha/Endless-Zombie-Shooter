@@ -16,20 +16,28 @@ public class PlayerController : MonoBehaviour
     public bool isInventoryOn = false;
     public GameUIController gameUIController;
     public WeaponHolder weaponHolder;
-
+    public HealthComponent healthComponent;
     private void Awake()
     {
         if (inventory == null)
         {
             inventory = GetComponent<InventoryComponent>();
         }
-        if (gameUIController == null)
-        {
-            gameUIController = GetComponent<GameUIController>();
-        }
+        //if (gameUIController == null)
+        //{
+        //    gameUIController = GetComponent<GameUIController>();
+        //}
         if (weaponHolder == null)
         {
             weaponHolder = GetComponent<WeaponHolder>();
+        }
+        if(healthComponent == null)
+        {
+            healthComponent = GetComponent<HealthComponent>();
+        }
+        if (gameUIController == null)
+        {
+            gameUIController = FindObjectOfType<GameUIController>();
         }
     }
 

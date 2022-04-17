@@ -20,6 +20,7 @@ public class ZombieDeadState : ZombieStates
 
         ownerZombie.zombieAnimator.SetFloat(movementZHash, 0);
         ownerZombie.zombieAnimator.SetBool(isDeadHash, true);
+        Debug.Log("Zombie dead");
     }
 
 

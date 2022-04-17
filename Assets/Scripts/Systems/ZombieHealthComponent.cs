@@ -15,4 +15,13 @@ public class ZombieHealthComponent : HealthComponent
     {
         zombieStateMachine.ChangeState((ZombieStateType.IsDead));
     }
+
+    private void Update()
+    {
+        if(CurrentHealth<1)
+        {
+            zombieStateMachine.ChangeState((ZombieStateType.IsDead));
+
+        }
+    }
 }

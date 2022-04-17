@@ -16,7 +16,7 @@ public enum WeaponFiringPattern
 [System.Serializable]
 public struct WeaponStats
 {
-    WeaponType weapontype;
+    public WeaponType weaponType;
     public string weaponName;
     public float damage;
     public int bulletsInClip;
