@@ -14,9 +14,12 @@ public class PlayerController : MonoBehaviour
     public InventoryComponent inventory;
 
     public bool isInventoryOn = false;
+    public bool isPauseOn = false;
     public GameUIController gameUIController;
     public WeaponHolder weaponHolder;
     public HealthComponent healthComponent;
+    public MovementComponent movementComponent;
+    public GameObject pauseScreen;
     private void Awake()
     {
         if (inventory == null)
@@ -35,6 +38,10 @@ public class PlayerController : MonoBehaviour
         {
             healthComponent = GetComponent<HealthComponent>();
         }
+        if(movementComponent == null)
+        {
+            movementComponent = GetComponent<MovementComponent>();
+        }
         if (gameUIController == null)
         {
             gameUIController = FindObjectOfType<GameUIController>();
@@ -48,4 +55,23 @@ public class PlayerController : MonoBehaviour
         AppEvents.InvokeMouseCursorEnable(isInventoryOn);
 
     }
+
+    public void OnPause(InputValue value)
+    {
+        if(isPauseOn)
+        {
+            Time.timeScale = 1;
+            isPauseOn = false;
+            pauseScreen.SetActive(false);
+            Cursor.visible = false;
+        }
+        else
+        {
+            Time.timeScale = 0;
+            isPauseOn = true;
+            pauseScreen.SetActive(true);
+            Cursor.visible = true;
+        }
+    }
+
 }

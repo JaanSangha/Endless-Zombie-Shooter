@@ -21,7 +21,7 @@ public class GameUIController : MonoBehaviour
     //{
     //    if (ActiveWidget) ActiveWidget.DisableWidget();
 
-    //    //ActiveWidget = PauseCanvas;
+    //    ActiveWidget = PauseCanvas;
     //    ActiveWidget.EnableWidget();
     //}
 

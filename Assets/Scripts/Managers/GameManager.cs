@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
-
     public bool cursorActive = true;
     void EnableCursor(bool enable)
     {
@@ -21,6 +20,8 @@ public class GameManager : Singleton<GameManager>
             Cursor.lockState = CursorLockMode.Locked;
         }
     }
+
+ 
     private void OnEnable()
     {
         AppEvents.MouseCursorEnabled += EnableCursor;

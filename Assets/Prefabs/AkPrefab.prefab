@@ -111,6 +111,7 @@ MonoBehaviour:
   firingEffectLocation: {fileID: 937829961996190578}
   firingEffect: {fileID: 4270877556264477856}
   weaponStats:
+    weaponType: 0
     weaponName: AK-47
     damage: 35
     bulletsInClip: 30
@@ -126,6 +127,7 @@ MonoBehaviour:
     totalBullets: 500
   isFiring: 0
   isReloading: 0
+  bulletPrefab: {fileID: 7077081130370633524, guid: 068381675912eb044a912de01e17f9cd, type: 3}
 --- !u!1001 &4177793903188365898
 PrefabInstance:
   m_ObjectHideFlags: 0

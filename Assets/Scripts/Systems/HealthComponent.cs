@@ -28,7 +28,7 @@ public class HealthComponent : MonoBehaviour, IDamageable
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
-            Destroy();
+            //Destroy();
         }
     }
 

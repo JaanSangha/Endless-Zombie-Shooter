@@ -39,6 +39,12 @@ public class ZombieAttackState : ZombieStates
     }
     public override void Update()
     {
+
+        if (followTarget == null)
+        {
+            stateMachine.ChangeState(ZombieStateType.Idling);
+            return;
+        }
         // base.Update();
         ownerZombie.transform.LookAt(followTarget.transform.position, Vector3.up);
 

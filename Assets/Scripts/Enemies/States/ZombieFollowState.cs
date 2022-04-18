@@ -28,14 +28,17 @@ public class ZombieFollowState : ZombieStates
         ownerZombie.zombieAnimator.SetFloat(movementZHash, moveZ);
         Debug.Log("" + moveZ);
 
+      
+        if(followTarget == null)
+        {
+            stateMachine.ChangeState(ZombieStateType.Idling);
+            return;
+        }
+
         float distanceBetween = Vector3.Distance(ownerZombie.transform.position, followTarget.transform.position);
         if (distanceBetween < stoppingDistance)
         {
             stateMachine.ChangeState(ZombieStateType.Attacking);
-        }
-        if(followTarget == null)
-        {
-            stateMachine.ChangeState(ZombieStateType.Idling);
         }
     }
     public override void Exit()

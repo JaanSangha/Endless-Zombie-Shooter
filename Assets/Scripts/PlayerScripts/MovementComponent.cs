@@ -18,6 +18,8 @@ public class MovementComponent : MonoBehaviour
     Rigidbody rigidbody;
     Animator playerAnimator;
     public GameObject followTarget;
+    public ParticleSystem speedParticles;
+    public MechanicsManager mechanicsManager;
 
     //references
     Vector2 inputVector = Vector2.zero;
@@ -26,7 +28,8 @@ public class MovementComponent : MonoBehaviour
 
 
     public float aimSensitivity = 0.2f;
-
+    public bool speedBoost;
+    public float speedTimer = 10;
     //animator hashes
     public readonly int movementXHash = Animator.StringToHash("MovementX");
     public readonly int movementYHash = Animator.StringToHash("MovementY");
@@ -39,6 +42,8 @@ public class MovementComponent : MonoBehaviour
         playerAnimator = GetComponent<Animator>();
         rigidbody = GetComponent<Rigidbody>();
         playerController = GetComponent<PlayerController>();
+        mechanicsManager = FindObjectOfType<MechanicsManager>();
+
         if (!GameManager.instance.cursorActive)
         {
             AppEvents.InvokeMouseCursorEnable(false);
@@ -55,6 +60,27 @@ public class MovementComponent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(playerController.healthComponent.CurrentHealth <= 0)
+        {
+            mechanicsManager.GameOver(false);
+        }
+        if(speedTimer <= 0)
+        {
+            speedBoost = false;
+        }
+        if(speedBoost)
+        {
+            walkSpeed = 10;
+            runSpeed = 20;
+            speedTimer -= Time.deltaTime;
+        }
+        else
+        {
+            walkSpeed = 5;
+            runSpeed = 10;
+            speedTimer = 10;
+            speedParticles.Stop();
+        }
         //aiming/looking
         followTarget.transform.rotation *= Quaternion.AngleAxis(lookInput.x * aimSensitivity, Vector3.up);
         followTarget.transform.rotation *= Quaternion.AngleAxis(lookInput.y * aimSensitivity, Vector3.left);
@@ -135,5 +161,10 @@ public class MovementComponent : MonoBehaviour
         
         playerController.isJumping = false;
         playerAnimator.SetBool(isJumpingHash, false);
+    }
+
+    public void PlayParticles()
+    {
+        speedParticles.Play();
     }
 }

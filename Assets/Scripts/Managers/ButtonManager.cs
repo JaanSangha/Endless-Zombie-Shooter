@@ -22,4 +22,9 @@ public class ButtonManager : MonoBehaviour
     {
         SceneManager.LoadScene("Main");
     }
+
+    public void OnMenuPressed()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
 }
